@@ -1,1 +1,649 @@
+package workchees;
+import java.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.*;
+public class Work extends JFrame  
+{
+    public static void main(String[] args) 
+    {
 
+        
+        new Work();
+    }
+    
+    public Work()
+    {
+        initComponents();
+    }
+    
+
+    
+    
+    public void initComponents() 
+    {   
+
+        this.setSize(1100, 1100);
+        this.setBackground(Color.darkGray);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(3);
+        this.setVisible(true);  
+        
+        
+        this.addMouseListener(new MouseListener()
+        {
+            @Override
+            public void mouseClicked(MouseEvent me) 
+            {
+               
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) 
+            {
+                System.out.println(me.getX());
+                click.setXY(getWidth(me.getX()), getHeight(me.getY()));
+                zmienPolozenie();
+                repaint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+             
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                
+            }
+        });
+        
+        
+    graczCzarny.put(1, BlackPawn1);
+    graczCzarny.put(2, BlackPawn2);
+    graczCzarny.put(3, BlackPawn3);
+    graczCzarny.put(4, BlackPawn4);
+    graczCzarny.put(5, BlackPawn5);
+    graczCzarny.put(6, BlackPawn6);
+    graczCzarny.put(7, BlackPawn7);
+    graczCzarny.put(8, BlackPawn8);
+    graczCzarny.put(9, BlackRook1);
+    graczCzarny.put(16, BlackRook2);
+    graczCzarny.put(13, BlackQueen);
+    graczCzarny.put(12, BlackKing);
+    graczCzarny.put(11, BlackKBishop1);
+    graczCzarny.put(14, BlackKBishop2);
+    graczCzarny.put(10, BlackKnight1);
+    graczCzarny.put(15, BlackKnight2);
+    
+    graczBialy.put(1, WhitePawn1);
+    graczBialy.put(2, WhitePawn2);
+    graczBialy.put(3, WhitePawn3);
+    graczBialy.put(4, WhitePawn4);
+    graczBialy.put(5, WhitePawn5);
+    graczBialy.put(6, WhitePawn6);
+    graczBialy.put(7, WhitePawn7);
+    graczBialy.put(8, WhitePawn8);
+    graczBialy.put(9, WhiteRook1);
+    graczBialy.put(16, WhiteRook2);
+    graczBialy.put(13, WhiteQueen);
+    graczBialy.put(12, WhiteKing);
+    graczBialy.put(11, WhiteKBishop1);
+    graczBialy.put(14, WhiteKBishop2);
+    graczBialy.put(10, WhiteKnight1);
+    graczBialy.put(15, WhiteKnight2);       
+}
+    
+    public void zmienPolozenie()
+    {
+        
+    }
+                                           
+            
+    @Override
+            public void paint(Graphics g)
+            {
+                g.setColor(Color.YELLOW);
+                g.fillRect(100, 100, 800, 800);
+                for(int i=200;i<900;i+=200)
+                {
+                        for(int j=200;j<900;j+=200)
+                        {
+                             g.clearRect(i-100, j-100, 100, 100);
+                        }
+                }
+                for(int i=200;i<900;i+=200)
+                {
+                        for(int j=200;j<900;j+=200)
+                        {
+                             g.clearRect(i, j, 100, 100);
+                        }
+                }                                     
+                        for(int i=1;i<17;i++)
+                        {
+                            
+                        //   if(graczCzarny.get(i).czyIstnieje()==true && graczCzarny.get(i).czyOdswiezyc()==true)
+                            g.drawImage(graczCzarny.get(i).getFace().getImage(),getWidth(graczCzarny.get(i).getX()), getHeight(graczCzarny.get(i).getY()), this);
+                        }
+
+
+                        for(int i=1;i<17;i++)
+                        {
+                         //   if(graczCzarny.get(i).czyIstnieje()==true && graczCzarny.get(i).czyOdswiezyc()==true)
+                            g.drawImage(graczBialy.get(i).getFace().getImage(),getWidth(graczBialy.get(i).getX()), getHeight(graczBialy.get(i).getY()), this);
+                        }
+                                                System.out.println(getWidth(graczBialy.get(7).getX())+" :"+getHeight(graczBialy.get(7).getY()));
+                                                System.out.println(getWidth(graczBialy.get(8).getX())+" :"+getHeight(graczBialy.get(8).getY()));
+                                                System.out.println(graczBialy.get(8).getX()+" :"+graczBialy.get(8).getY());
+                                                System.out.println(graczBialy.get(7).getX()+" :"+graczBialy.get(7).getY());
+                                                System.out.println(graczBialy.get(8).getFace().getNazwa());
+
+            }
+                                        
+                                        
+                                    
+                                        
+    Map<Integer, Tile> graczCzarny = new TreeMap<>();
+    Map<Integer, Tile> graczBialy= new TreeMap<>();
+
+    public static Image bishop = new ImageIcon("Black_Bishop.png").getImage();  
+    
+       
+    public int getHeight(int numberOfRow)
+    {
+
+        return 115+100*(numberOfRow-1);
+    }
+
+    public int getWidth(int numberOfCol)
+    {
+
+            return 117+100*(numberOfCol-1);
+
+    };
+    
+    Tile BlackPawn1 = new Tile(1,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn2 = new Tile(2,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn3 = new Tile(3,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn4 = new Tile(4,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn5 = new Tile(5,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn6 = new Tile(6,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn7 = new Tile(7,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn8 = new Tile(8,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    
+    Tile BlackQueen = new Tile(4,1,new Figury("queen",Toolkit.getDefaultToolkit().getImage("Black_Queen.png")),true,true);
+    Tile BlackRook1 = new Tile(1,1,new Figury("Rook",Toolkit.getDefaultToolkit().getImage("Black_Rook.png")),true,true);
+    Tile BlackRook2 = new Tile(8,1,new Figury("Rook",Toolkit.getDefaultToolkit().getImage("Black_Rook.png")),true,true);
+    Tile BlackKBishop1 = new Tile(3,1,new Figury("Bishop",Toolkit.getDefaultToolkit().getImage("Black_Bishop.png")),true,true);
+    Tile BlackKBishop2 = new Tile(6,1,new Figury("Bishop",Toolkit.getDefaultToolkit().getImage("Black_Bishop.png")),true,true);
+    Tile BlackKnight1 = new Tile(2,1,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Knight.png")),true,true);
+    Tile BlackKnight2 = new Tile(7,1,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Knight.png")),true,true);
+    Tile BlackKing = new Tile(5,1,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_King.png")),true,true);
+    Click click=new Click(1,1);
+    Tile WhitePawn1 = new Tile(1,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn2 = new Tile(2,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn3 = new Tile(3,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn4 = new Tile(4,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn5 = new Tile(5,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn6 = new Tile(6,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn7= new Tile(7,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn8 = new Tile(8,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    
+    Tile WhiteQueen = new Tile(5,8,new Figury("queen",Toolkit.getDefaultToolkit().getImage("White_Queen.png")),true,true);
+    Tile WhiteRook1 = new Tile(1,8,new Figury("Rook",Toolkit.getDefaultToolkit().getImage("White_Rook.png")),true,true);
+    Tile WhiteRook2 = new Tile(8,8,new Figury("Rook",Toolkit.getDefaultToolkit().getImage("White_Rook.png")),true,true);
+    Tile WhiteKBishop1 = new Tile(3,8,new Figury("Bishop",Toolkit.getDefaultToolkit().getImage("White_Bishop.png")),true,true);
+    Tile WhiteKBishop2 = new Tile(6,8,new Figury("Bishop",Toolkit.getDefaultToolkit().getImage("White_Bishop.png")),true,true);
+    Tile WhiteKnight1 = new Tile(2,8,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Knight.png")),true,true);
+    Tile WhiteKnight2 = new Tile(7,8,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Knight.png")),true,true);
+    Tile WhiteKing = new Tile(4,8,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_King.png")),true,true);
+
+
+
+
+ 
+
+  
+
+  
+    
+}
+
+class Click
+{
+    private int _x;
+    private int _y;
+    public Click(int x,int y)
+    {
+        _x=x;
+        _y=y;
+    }
+    public int getX()
+    {
+        return _x;
+
+    }
+    
+        public int getY()
+    {
+        return _y;
+
+    }
+        
+    public void    setXY(int x,int y)
+    {
+          _x= x;
+         _y = y;
+    }
+}
+
+ class Figury
+{
+ 
+    private String _nazwa;  
+    private Image _img;
+    private int _druzyna;
+    public Figury( String nazwa, Image img)
+    {
+        _nazwa = nazwa;
+        _img= img;
+
+        
+    }
+    public Image getImage()
+    {
+        return _img;
+    }
+    
+    
+    public String getNazwa()
+    {
+        return _nazwa;
+    }
+
+}
+
+class Tile 
+{
+    private int _row;   
+    private int _col;     
+    private Figury _face;  
+    private boolean _czyIstnieje;
+    public Tile(int col, int row, Figury face,boolean czyIstnieje, boolean czyOdswiezyc)
+    {
+        _col = col;
+        _row = row;
+        _face = face;
+   
+    }
+    
+    
+      public boolean czyIstnieje() 
+    {
+        return true;
+    }
+      public boolean czyOdswiezyc() 
+    {
+        return false;
+    }
+            
+    public void setFace(Figury newFace) 
+    {
+        _face = newFace;
+    }
+     public Figury getFace() 
+    {
+        return _face;
+    }
+    public void setXY(int X, int Y) 
+    {
+        _col = X;
+         _row = Y;
+    }
+     public int getX() 
+    {
+        return _col;
+       
+    }
+    public int getY() 
+    {
+        return _row;
+       
+    }
+   
+}package workchees;
+import java.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.*;
+public class Work extends JFrame  
+{
+    public static void main(String[] args) 
+    {
+
+        
+        new Work();
+    }
+    
+    public Work()
+    {
+        initComponents();
+    }
+    
+
+    
+    
+    public void initComponents() 
+    {   
+
+        this.setSize(1100, 1100);
+        this.setBackground(Color.darkGray);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(3);
+        this.setVisible(true);  
+        
+        
+        this.addMouseListener(new MouseListener()
+        {
+            @Override
+            public void mouseClicked(MouseEvent me) 
+            {
+               
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) 
+            {
+                System.out.println(me.getX());
+                click.setXY(getWidth(me.getX()), getHeight(me.getY()));
+                zmienPolozenie();
+                repaint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+             
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                
+            }
+        });
+        
+        
+    graczCzarny.put(1, BlackPawn1);
+    graczCzarny.put(2, BlackPawn2);
+    graczCzarny.put(3, BlackPawn3);
+    graczCzarny.put(4, BlackPawn4);
+    graczCzarny.put(5, BlackPawn5);
+    graczCzarny.put(6, BlackPawn6);
+    graczCzarny.put(7, BlackPawn7);
+    graczCzarny.put(8, BlackPawn8);
+    graczCzarny.put(9, BlackRook1);
+    graczCzarny.put(16, BlackRook2);
+    graczCzarny.put(13, BlackQueen);
+    graczCzarny.put(12, BlackKing);
+    graczCzarny.put(11, BlackKBishop1);
+    graczCzarny.put(14, BlackKBishop2);
+    graczCzarny.put(10, BlackKnight1);
+    graczCzarny.put(15, BlackKnight2);
+    
+    graczBialy.put(1, WhitePawn1);
+    graczBialy.put(2, WhitePawn2);
+    graczBialy.put(3, WhitePawn3);
+    graczBialy.put(4, WhitePawn4);
+    graczBialy.put(5, WhitePawn5);
+    graczBialy.put(6, WhitePawn6);
+    graczBialy.put(7, WhitePawn7);
+    graczBialy.put(8, WhitePawn8);
+    graczBialy.put(9, WhiteRook1);
+    graczBialy.put(16, WhiteRook2);
+    graczBialy.put(13, WhiteQueen);
+    graczBialy.put(12, WhiteKing);
+    graczBialy.put(11, WhiteKBishop1);
+    graczBialy.put(14, WhiteKBishop2);
+    graczBialy.put(10, WhiteKnight1);
+    graczBialy.put(15, WhiteKnight2);       
+}
+    
+    public void zmienPolozenie()
+    {
+        
+    }
+                                           
+            
+    @Override
+            public void paint(Graphics g)
+            {
+                g.setColor(Color.YELLOW);
+                g.fillRect(100, 100, 800, 800);
+                for(int i=200;i<900;i+=200)
+                {
+                        for(int j=200;j<900;j+=200)
+                        {
+                             g.clearRect(i-100, j-100, 100, 100);
+                        }
+                }
+                for(int i=200;i<900;i+=200)
+                {
+                        for(int j=200;j<900;j+=200)
+                        {
+                             g.clearRect(i, j, 100, 100);
+                        }
+                }                                     
+                        for(int i=1;i<17;i++)
+                        {
+                            
+                        //   if(graczCzarny.get(i).czyIstnieje()==true && graczCzarny.get(i).czyOdswiezyc()==true)
+                            g.drawImage(graczCzarny.get(i).getFace().getImage(),getWidth(graczCzarny.get(i).getX()), getHeight(graczCzarny.get(i).getY()), this);
+                        }
+
+
+                        for(int i=1;i<17;i++)
+                        {
+                         //   if(graczCzarny.get(i).czyIstnieje()==true && graczCzarny.get(i).czyOdswiezyc()==true)
+                            g.drawImage(graczBialy.get(i).getFace().getImage(),getWidth(graczBialy.get(i).getX()), getHeight(graczBialy.get(i).getY()), this);
+                        }
+                                                System.out.println(getWidth(graczBialy.get(7).getX())+" :"+getHeight(graczBialy.get(7).getY()));
+                                                System.out.println(getWidth(graczBialy.get(8).getX())+" :"+getHeight(graczBialy.get(8).getY()));
+                                                System.out.println(graczBialy.get(8).getX()+" :"+graczBialy.get(8).getY());
+                                                System.out.println(graczBialy.get(7).getX()+" :"+graczBialy.get(7).getY());
+                                                System.out.println(graczBialy.get(8).getFace().getNazwa());
+
+            }
+                                        
+                                        
+                                    
+                                        
+    Map<Integer, Tile> graczCzarny = new TreeMap<>();
+    Map<Integer, Tile> graczBialy= new TreeMap<>();
+
+    public static Image bishop = new ImageIcon("Black_Bishop.png").getImage();  
+    
+       
+    public int getHeight(int numberOfRow)
+    {
+
+        return 115+100*(numberOfRow-1);
+    }
+
+    public int getWidth(int numberOfCol)
+    {
+
+            return 117+100*(numberOfCol-1);
+
+    };
+    
+    Tile BlackPawn1 = new Tile(1,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn2 = new Tile(2,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn3 = new Tile(3,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn4 = new Tile(4,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn5 = new Tile(5,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn6 = new Tile(6,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn7 = new Tile(7,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    Tile BlackPawn8 = new Tile(8,2,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Pawn.png")),true,true);
+    
+    Tile BlackQueen = new Tile(4,1,new Figury("queen",Toolkit.getDefaultToolkit().getImage("Black_Queen.png")),true,true);
+    Tile BlackRook1 = new Tile(1,1,new Figury("Rook",Toolkit.getDefaultToolkit().getImage("Black_Rook.png")),true,true);
+    Tile BlackRook2 = new Tile(8,1,new Figury("Rook",Toolkit.getDefaultToolkit().getImage("Black_Rook.png")),true,true);
+    Tile BlackKBishop1 = new Tile(3,1,new Figury("Bishop",Toolkit.getDefaultToolkit().getImage("Black_Bishop.png")),true,true);
+    Tile BlackKBishop2 = new Tile(6,1,new Figury("Bishop",Toolkit.getDefaultToolkit().getImage("Black_Bishop.png")),true,true);
+    Tile BlackKnight1 = new Tile(2,1,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Knight.png")),true,true);
+    Tile BlackKnight2 = new Tile(7,1,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_Knight.png")),true,true);
+    Tile BlackKing = new Tile(5,1,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("Black_King.png")),true,true);
+    Click click=new Click(1,1);
+    Tile WhitePawn1 = new Tile(1,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn2 = new Tile(2,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn3 = new Tile(3,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn4 = new Tile(4,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn5 = new Tile(5,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn6 = new Tile(6,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn7= new Tile(7,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    Tile WhitePawn8 = new Tile(8,7,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Pawn.png")),true,true);
+    
+    Tile WhiteQueen = new Tile(5,8,new Figury("queen",Toolkit.getDefaultToolkit().getImage("White_Queen.png")),true,true);
+    Tile WhiteRook1 = new Tile(1,8,new Figury("Rook",Toolkit.getDefaultToolkit().getImage("White_Rook.png")),true,true);
+    Tile WhiteRook2 = new Tile(8,8,new Figury("Rook",Toolkit.getDefaultToolkit().getImage("White_Rook.png")),true,true);
+    Tile WhiteKBishop1 = new Tile(3,8,new Figury("Bishop",Toolkit.getDefaultToolkit().getImage("White_Bishop.png")),true,true);
+    Tile WhiteKBishop2 = new Tile(6,8,new Figury("Bishop",Toolkit.getDefaultToolkit().getImage("White_Bishop.png")),true,true);
+    Tile WhiteKnight1 = new Tile(2,8,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Knight.png")),true,true);
+    Tile WhiteKnight2 = new Tile(7,8,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_Knight.png")),true,true);
+    Tile WhiteKing = new Tile(4,8,new Figury("pawn",Toolkit.getDefaultToolkit().getImage("White_King.png")),true,true);
+
+
+
+
+ 
+
+  
+
+  
+    
+}
+
+class Click
+{
+    private int _x;
+    private int _y;
+    public Click(int x,int y)
+    {
+        _x=x;
+        _y=y;
+    }
+    public int getX()
+    {
+        return _x;
+
+    }
+    
+        public int getY()
+    {
+        return _y;
+
+    }
+        
+    public void    setXY(int x,int y)
+    {
+          _x= x;
+         _y = y;
+    }
+}
+
+ class Figury
+{
+ 
+    private String _nazwa;  
+    private Image _img;
+    private int _druzyna;
+    public Figury( String nazwa, Image img)
+    {
+        _nazwa = nazwa;
+        _img= img;
+
+        
+    }
+    public Image getImage()
+    {
+        return _img;
+    }
+    
+    
+    public String getNazwa()
+    {
+        return _nazwa;
+    }
+
+}
+
+class Tile 
+{
+    private int _row;   
+    private int _col;     
+    private Figury _face;  
+    private boolean _czyIstnieje;
+    public Tile(int col, int row, Figury face,boolean czyIstnieje, boolean czyOdswiezyc)
+    {
+        _col = col;
+        _row = row;
+        _face = face;
+   
+    }
+    
+    
+      public boolean czyIstnieje() 
+    {
+        return true;
+    }
+      public boolean czyOdswiezyc() 
+    {
+        return false;
+    }
+            
+    public void setFace(Figury newFace) 
+    {
+        _face = newFace;
+    }
+     public Figury getFace() 
+    {
+        return _face;
+    }
+    public void setXY(int X, int Y) 
+    {
+        _col = X;
+         _row = Y;
+    }
+     public int getX() 
+    {
+        return _col;
+       
+    }
+    public int getY() 
+    {
+        return _row;
+       
+    }
+   
+}
